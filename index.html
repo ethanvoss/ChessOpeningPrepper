@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chess</title>
+    <link rel="stylesheet" href="css/chessboard-1.0.0.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="js/chessboard-1.0.0.min.js"></script>
+    <style>
+      label { display: block }
+      button { display: block}
+
+      #board {float: left;}
+      #pgn {float: left;}
+      #suggest {margin-left: auto;}
+    </style>
+  </head>
+  <body>
+    <h1>Welcome</h1>
+    <h2 id="instruction">input the lichess username of the user you would like to prep against</h2>
+    <div id="inputdiv">
+    <input id="input"></input>
+    <break/>
+    <label for="Types">Choose the type of games you wish to look at:</label>
+    
+    <select name="Types" id="types">
+      <option value="all">All</option>
+      <option value="rated">Rated</option>
+      <option value="blitz">Blitz</option>
+      <option value="rapid">Rapid</option>
+      <option value="classical">Classical</option>
+    </select>
+    <label for="Side">Choose the side you wish to play as:</label>
+    <select name="Side" id="side">
+      <option value="white">White</option>
+      <option value="black">Black</option>
+    </select>
+    <label for="Limit">Limit how many games you pull(leave empty to pull all games)</label>
+      <input name="Limit" id="limit"></input>
+    <p/>
+    <button id="submit">Submit</button>
+
+    </div>
+    <div id="loadingstatus"></div>
+    <div id="root">
+    <div id="board" style="width: 400px"></div>
+    <div id="pgn"> 
+      <h3 id="moveDisplay"></h3>
+      <ol id="moveList">
+      </ol>
+
+    </div>
+        <div id="suggest">
+          <p id="faced"></p>
+          <p id="popular"></p>
+
+        </div>
+    </div>
+    <script src="scripts/FenHandling.js"></script>
+    <script src="scripts/sleep.js"></script>
+    <script> 
+    //global vars
+    var board = Chessboard('board');
+    var side, oppSide;
+    var moveNum = 1;
+    var pieceMoves = 0;
+    var games = [];
+    var oppMove;
+    var pgnMoves = [];
+    var displaySide = "white";
+    class fenObj
+      {
+        constructor(fenIn)
+        {
+          this.fen = fenToString(fenIn);
+        }
+        getFen()
+        {
+          return this.fen;
+        }
+      }
+
+
+    const baseFen = new fenObj([
+      ["R","N","B","Q","K","B","N","R"],["P","P","P","P","P","P","P","P"],["0","0","0","0","0","0","0","0"],
+      ["0","0","0","0","0","0","0","0"],["0","0","0","0","0","0","0","0"],["0","0","0","0","0","0","0","0"],
+      ["p","p","p","p","p","p","p","p"],["r","n","b","q","k","b","n","r"]
+    ]); //fen is a 2d array in the form of fen[row][collum]
+    
+    var currentFen = [];
+    currentFen.push(baseFen.getFen());
+
+    </script>
+    <script src="scripts/UI.js"></script>
+    <script src="scripts/LichessInteraction.js"></script>
+    <script src="scripts/MoveToFen.js"></script>
+    <script src="scripts/DataInteraction.js"></script>
+    <script src="scripts/GameInit.js"></script>
+    <script>
+ //add a settings menu maybe, maybe convert to a node server site so users can load pgns quicker if theyve used them recently, add suggested moves from the oppening api, add position eval from lichess    
+    openingFetch();
+
+
+
+    //https://explorer.lichess.ovh/master?variant=standard&fen=rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR doesnt work
+    //https://explorer.lichess.ovh/master?variant=standard&fen=rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR does work  
+
+
+
+    </script>
+    <script src="scripts/GetInput.js"></script>
+  </body>
+</html>
