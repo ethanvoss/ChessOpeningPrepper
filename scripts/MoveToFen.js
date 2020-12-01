@@ -1,8 +1,5 @@
 //doesnt support castling and breaks on cases where two of the same piece can move to a square
 
-
-const cConvert = ["a","b","c","d","e","f","g","h"];
-
 function moveToFen(fenIn, move)
 {	
 	//convert move to fen then return that fen

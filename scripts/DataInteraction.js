@@ -10,25 +10,7 @@ function newMove()
 			makeMove(move);
 			input.value = "";
 
-			updatePgn(playerMove);
-			//get opp move
-			var findmove = findMove();
-			if(findmove == "noGames")
-				{
-					var display = document.getElementById('moveDisplay');
-					display.innerHTML = "They have never reached this position in the loaded games.";
-				}
-			else
-				{
-					updatePgn(findmove["move"]);
-					var oMove = expandMove(currentFen[pieceMoves], findmove["move"],oppSide);
-					currentFen.push(moveToFen(currentFen[pieceMoves], oMove));
-
-					makeMove(oMove);
-				}
-			
-
-			
+			updatePgn(playerMove);		
 		}
 	else
 		{
@@ -108,9 +90,11 @@ function findMove()
 
 
 
-function makeMove(move)
+function makeMove(move, source)
 {
-	board.move(move);
+	console.log("making move " + move);
+	source = source || false;
+	if(!source) board.move(move);
 	pieceMoves++;
 	updateFaced(findMove());
 	
@@ -121,9 +105,32 @@ function makeMove(move)
 	{
 		openingFetch();
 	}
+	var comparer = 1;
+	if(side == "black") comparer = 0;
+	if(pieceMoves % 2 == comparer)
+		{
+			//opponents move
+			var findmove = findMove();
+			if(findmove == "noGames")
+				{
+					var display = document.getElementById('moveDisplay');
+					display.innerHTML = "They have never reached this position in the loaded games.";
+				}
+			else
+				{
+					updatePgn(findmove["move"]);
+					var oMove = expandMove(currentFen[pieceMoves], findmove["move"],oppSide);
+					currentFen.push(moveToFen(currentFen[pieceMoves], oMove));
 
-	console.log(displaySide);
+					makeMove(oMove);
+				}
+		}
 }
+
+
+
+
+
 
 function undo()
 {
@@ -162,16 +169,17 @@ function updatePopular(data)
 }
 
 function openingFetch()
-      {
-        var api = "https://explorer.lichess.ovh/master?variant=standard&fen=";
-        //api += "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R";
-        api += fenToBoardFen(currentFen[pieceMoves]);
-        console.log(api);
-        if(side == "black") api += " b";
-        fetch(api).then(function(e){
-          return e.json();
-        }).then(function(data){
-          updatePopular(data);
-        }).catch(err => console.log(err));
-        //return dataOut;
-      }
+{
+var api = "https://explorer.lichess.ovh/master?variant=standard&fen=";
+//api += "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R";
+api += fenToBoardFen(currentFen[pieceMoves]);
+console.log(api);
+// add b if it is blacks move
+if(pieceMoves % 2 != 0) api += " b"; 
+fetch(api).then(function(e){
+  return e.json();
+}).then(function(data){
+  updatePopular(data);
+}).catch(err => console.log(err));
+//return dataOut;
+}

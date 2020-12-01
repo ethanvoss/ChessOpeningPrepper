@@ -7,15 +7,7 @@ document.getElementById('submit').addEventListener('click', function(){
 	if(side == "black") oppSide = "white";
 
 	//initialize board
-    var config = 
-      {
-        draggable: true,
-        dropOffBoard: 'snapback', 
-        position: 'start',
-        orientation: side
-      }
-
-    board = Chessboard('board', config);
+	board.orientation(side);
 
 	fetchFromLichess(user,type,limit,oppSide);
 

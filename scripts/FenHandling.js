@@ -1,3 +1,5 @@
+const cConvert = ["a","b","c","d","e","f","g","h"];
+
 function fenToString(fenIn)
 {
 	var fenOut = "";
@@ -77,5 +79,42 @@ function flipFen(fen)
 	}
 
 	return fenOut;
+
+}
+
+function uciToSan(fen, uci)
+{
+	fen = stringToFen(fen);
+	var oldPos = uci.split('-')[0];
+	var newPos = uci.split('-')[1];
+	var oldC, newC;
+	for(var i = 0; i < cConvert.length; i++)
+	{
+		var c = cConvert[i];
+		if(oldPos.split('')[0] == c) oldC = i;
+		if(newPos.split('')[0] == c) newC = i;
+	}
+	var oldR = oldPos.split('')[1];
+	var newR = newPos.split('')[1];
+
+	var piece = fen[parseInt(oldR) - 1][oldC];
+	var capture = "";
+	var san;
+	console.log("looking at " + (parseInt(oldR) - 1) + " " + oldC)
+	console.log(fen);
+
+	if(fen[newR][newC] != "0") capture = "x";
+	console.log(piece);
+	if(piece.toLowerCase() == "p")
+		{
+			//piece is a pawn
+			if(capture == "x") san = oldR + capture + newPos;
+			else san = newPos;
+		}
+	else
+		{
+			san = piece.toUpperCase() + capture + newPos;
+		}
+	return san;
 
 }

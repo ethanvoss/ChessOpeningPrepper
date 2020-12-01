@@ -59,7 +59,7 @@
     <script src="scripts/sleep.js"></script>
     <script> 
     //global vars
-    var board = Chessboard('board');
+    
     var side, oppSide;
     var moveNum = 1;
     var pieceMoves = 0;
@@ -94,11 +94,15 @@
     <script src="scripts/LichessInteraction.js"></script>
     <script src="scripts/MoveToFen.js"></script>
     <script src="scripts/DataInteraction.js"></script>
+    <script src="scripts/BoardHandling.js"></script>
     <script src="scripts/GameInit.js"></script>
     <script>
- //add a settings menu maybe, maybe convert to a node server site so users can load pgns quicker if theyve used them recently, add suggested moves from the oppening api, add position eval from lichess, opening api breaks on undo   
+ //add a settings menu maybe, maybe convert to a node server site so users can load pgns quicker if theyve used them recently, add suggested moves from the oppening api, add position eval from lichess, add something that lets you use the chess board to make moves
 
-
+    function onMoveEnd()
+    {
+      console.log("new move");
+    }
 
     </script>
     <script src="scripts/GetInput.js"></script>
