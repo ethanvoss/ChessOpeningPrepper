@@ -6,55 +6,137 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="js/chessboard-1.0.0.min.js"></script>
     <style>
-      label { display: block }
-      button { display: block}
+      * {
+        box-sizing: border-box;
+      }
+
+
+      label { 
+        display: block; 
+        color: white;
+      }
+      button { 
+        display: block;
+        border: 1px solid #303030;
+        background-color: #303030;
+        color: #fcfcfc;
+        border-radius: 4px;
+        font-size: 11px;
+        padding: 4px 4px;
+        transition-duration: 0.4s;
+      }
+
+      button:hover {
+          border: 1px solid #303030;
+          background-color: #fcfcfc; /* Green */
+          color: #303030;
+      }
+
 
       #board {float: left;}
       #pgn {float: left;}
       #suggest {margin-left: auto;}
+
+      body {
+        font-family: courier;
+        background: #1c1c1c;
+        color: white;
+      }
+      
+     
+
+      .inputText {
+        color:white;
+        background-color: #3d3d3d;
+        border: 1px solid #595959;
+        transition-duration: 0.4s;
+      }
+      .inputText:hover {
+        background-color: #595959;
+      }
+      .inputText:focus {
+        background-color: white;
+        color:black;
+      }
+
+      .title {
+        font-weight: 1;
+      }
+      
+
+      .col-1 {
+        transition-duration: 0.4s;
+        width: 30%;
+        margin-right: 3.33%;
+      }
+      
+
+      [class*="col-"] {
+        float: left;
+        padding: 15px;
+        background: #3d3d3d;
+      }
+      .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+      .moveControll {
+        margin-left: 10px;
+      }
+
     </style>
   </head>
   <body>
-    <h1>Welcome</h1>
-    <h2 id="instruction">input the lichess username of the user you would like to prep against</h2>
-    <div id="inputdiv">
-    <input id="input"></input>
-    <break/>
-    <label for="Types">Choose the type of games you wish to look at:</label>
-    
-    <select name="Types" id="types">
-      <option value="all">All</option>
-      <option value="rated">Rated</option>
-      <option value="blitz">Blitz</option>
-      <option value="rapid">Rapid</option>
-      <option value="classical">Classical</option>
-    </select>
-    <label for="Side">Choose the side you wish to play as:</label>
-    <select name="Side" id="side">
-      <option value="white">White</option>
-      <option value="black">Black</option>
-    </select>
-    <label for="Limit">Limit how many games you pull(leave empty to pull all games)</label>
-      <input name="Limit" id="limit"></input>
-    <p/>
-    <button id="submit">Submit</button>
-
+    <div id="top">
+      <h1 class="title">Welcome</h1>
+      <h2 id="instruction" class="title">input the lichess username of the user you would like to prep against</h2>
     </div>
-    <div id="loadingstatus"></div>
-    <div id="root">
-    <div id="board" style="width: 400px"></div>
-    <div id="pgn"> 
-      <h3 id="moveDisplay"></h3>
-      <ol id="moveList">
-      </ol>
 
-    </div>
-        <div id="suggest">
-          <p id="faced"></p>
-          <p id="popular"></p>
+
+    <div class="row">
+      <div id="inputdiv">
+        <input id="input" class="inputText"></input>
+        <break/>
+        <label for="Types">Choose the type of games you wish to look at:</label>
+        
+        <select name="Types" id="types" class="inputText">
+          <option value="all">All</option>
+          <option value="rated">Rated</option>
+          <option value="blitz">Blitz</option>
+          <option value="rapid">Rapid</option>
+          <option value="classical">Classical</option>
+        </select>
+        <label for="Side">Choose the side you wish to play as:</label>
+        <select name="Side" id="side" class="inputText">
+          <option value="white">White</option>
+          <option value="black">Black</option>
+        </select>
+        <label for="Limit">Limit how many games you pull(leave empty to pull all games)</label>
+          <input name="Limit" id="limit" class="inputText"></input>
+        <p/>
+        <button id="submit">Submit</button>
+      </div>
+      <div id="loadingstatus"></div>
+      <div class="col-1">
+        <div id="board" style="width: 100%"></div>
+      </div>
+      <div class="col-1">
+        <div id="pgn"> 
+          <h3 id="moveDisplay" class="title"></h3>
+          <ol id="moveList">
+          </ol>
 
         </div>
+      </div>
+      <div class="col-1">
+        <div id="suggest">
+          <h3 id="faced" class="title"></h3>
+          <h3 id="popular" class="title"></h3>
+        </div>
+      </div>
     </div>
+
     <script src="scripts/FenHandling.js"></script>
     <script src="scripts/sleep.js"></script>
     <script> 

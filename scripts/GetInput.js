@@ -19,6 +19,7 @@ document.getElementById('submit').addEventListener('click', function(){
 	var loadingStatus = document.getElementById('loadingstatus');
 	var status = document.createElement("H3");
 	status.setAttribute('id','status');
+	status.setAttribute('class','title')
 	status.textContent = "Loading " + user + "'s games";
 	loadingStatus.appendChild(status);
 

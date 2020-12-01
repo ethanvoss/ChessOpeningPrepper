@@ -88,19 +88,20 @@ function setupUserInput()
   var newInput = document.createElement("input");
   newInput.setAttribute('id','moveInput');
   newInput.setAttribute('name','MoveInput');
-  var linebreak = document.createElement("p");
+  newInput.setAttribute('class','inputText');
   var newButton = document.createElement("button");
   newButton.setAttribute('id','moveSubmit');
+  newButton.setAttribute('class','moveControll');
   newButton.innerHTML = 'Submit';
   newButton.onclick = newMove;
   newButton.style.display = "inline";
 
   var undoButton = document.createElement('button');
   undoButton.setAttribute('id','undoButton');
+  undoButton.setAttribute('class','moveControll');
   undoButton.innerHTML = 'Undo';
   undoButton.onclick = undo;
   undoButton.style.display = "inline";
-  undoButton.style.marginLeft = "20px";
   //add new inputs to input div
   var inputDiv = document.getElementById('inputdiv');
   inputDiv.appendChild(instruction);
