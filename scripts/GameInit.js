@@ -93,12 +93,14 @@ function setupUserInput()
   newButton.setAttribute('id','moveSubmit');
   newButton.innerHTML = 'Submit';
   newButton.onclick = newMove;
+  newButton.style.display = "inline";
 
   var undoButton = document.createElement('button');
   undoButton.setAttribute('id','undoButton');
   undoButton.innerHTML = 'Undo';
   undoButton.onclick = undo;
-
+  undoButton.style.display = "inline";
+  undoButton.style.marginLeft = "20px";
   //add new inputs to input div
   var inputDiv = document.getElementById('inputdiv');
   inputDiv.appendChild(instruction);
